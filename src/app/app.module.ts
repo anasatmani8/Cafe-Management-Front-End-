@@ -1,10 +1,8 @@
-//import { NgxUiLoaderConfig, SPINNER } from 'ngx-ui-loader';
-
 
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,19 +17,7 @@ import { AppHeaderComponent } from './layouts/full/header/header.component';
 import { AppSidebarComponent } from './layouts/full/sidebar/sidebar.component';
 import { SignupComponent } from './signup/signup.component';
 
-/*
 
-const ngxUiLoaderConfig: NgxUiLoaderConfig = {
-  text:"Loading ...",
-  textColor:"#FFFFFF",
-  textPosition:"center-center",
-  bgsColor:"#7b1fa2",
-  fgsColor:"#7b1fa2",
-  fgsType: SPINNER .squareJellyBox,
-  fgsSize:100,
-  hasProgressBar:false,
-  masterLoaderId: "master"
-}*/
 
 @NgModule({
   declarations: [
@@ -44,17 +30,16 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     SignupComponent
    ],
   imports: [
-   // BrowserModule,
+    BrowserModule,
     AppRoutingModule,
-  //  BrowserAnimationsModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    //MaterialModule,
-   // FlexLayoutModule,
+    MaterialModule,
+    FlexLayoutModule,
     SharedModule,
-   // HttpClientModule,
- //   NgxUiLoaderModule.forRoot(ngxUiLoaderConfig), //24
-
+    HttpClientModule,
+    NgxSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
