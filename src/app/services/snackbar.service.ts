@@ -10,17 +10,18 @@ export class SnackbarService {
 
   openSnackbar(message:string, action:string){
     if (action === 'error') {
+      console.log("error","/", message);
       this.snackbar.open(message,'',{
         horizontalPosition:'center',
         verticalPosition:'top',
-        duration:2000,
-        panelClass:['black-snackbar']
+        duration:4000,
+        panelClass: ['error']
       });
     } else {
       this.snackbar.open(message,'',{
         horizontalPosition:'center',
         verticalPosition:'top',
-        duration:2000,
+        duration:4000,
         panelClass:['green-snackbar']
       })
     }

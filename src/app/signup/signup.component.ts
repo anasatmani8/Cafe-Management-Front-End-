@@ -118,7 +118,7 @@ export class SignupComponent implements OnInit {
     },(error)=>{
       this.ngService.hide();
       if (error.error?.message) {
-        this.responseMessage = error.erroe?.message;
+        this.responseMessage = error.error?.message;
       }
       else{
         this.responseMessage = GlobalConstants.genericError;
