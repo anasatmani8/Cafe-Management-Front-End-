@@ -1,20 +1,20 @@
-import { Router } from '@angular/router';
 import { GlobalConstants } from './../shared/global-constants';
 import { SnackbarService } from './../services/snackbar.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserService } from './../services/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class ForgotPasswordComponent implements OnInit {
+export class LoginComponent implements OnInit {
 
-  ForgotPasswordForm:any = FormGroup;
+  hide = true;
+  loginForm:any = FormGroup;
   responseMessage:any;
 
   formErrors : { [char: string]: string } = {
@@ -31,25 +31,26 @@ export class ForgotPasswordComponent implements OnInit {
 
   constructor(private formBuilder:FormBuilder,
     private userService:UserService,
-    public dialogRef:MatDialogRef<ForgotPasswordComponent>,
+    public dialogRef:MatDialogRef<LoginComponent>,
     private ngService:NgxSpinnerService,
-    private router:Router,
     private snackBar:SnackbarService) { }
 
   ngOnInit(): void {
-    this.ForgotPasswordForm = this.formBuilder.group({
-      email:[null, [Validators.required, Validators.email, Validators.pattern(GlobalConstants.emailRegex)]]
+    this.loginForm = this.formBuilder.group({
+      email:[null, [Validators.required, Validators.email, Validators.pattern(GlobalConstants.emailRegex)]],
+      password:[null, [Validators.required]]
+
 
     })
-    this.ForgotPasswordForm.valueChanges
+    this.loginForm.valueChanges
     .subscribe((data: any) => this.onValueChanged(data));
 
   this.onValueChanged(); // (re)set validation messages now
 
   }
   onValueChanged(data?: any) {
-    if (!this.ForgotPasswordForm) { return; }
-    const form = this.ForgotPasswordForm;
+    if (!this.loginForm) { return; }
+    const form = this.loginForm;
     for (const field in this.formErrors) {
       if (this.formErrors.hasOwnProperty(field)) {
         // clear previous error message (if any)
@@ -70,29 +71,27 @@ export class ForgotPasswordComponent implements OnInit {
 
   handelSubmit(){
     this.ngService.show();
-    var formData = this.ForgotPasswordForm.value;
+    var formData = this.loginForm.value;
     var data = {
-      email : formData.email
+      email: formData.email,
+      password: formData.password
     }
 
-    this.userService.forgotPassword(data).subscribe((response:any)=>{
+    this.userService.login(data).subscribe((response:any)=>{
       this.ngService.hide();
       this.dialogRef.close();
-      localStorage.setItem('token', response.token);
-      this.router.navigate(['cafe/dashbord']);
-    },(error)=>{
+      this.responseMessage = response?.message;
+      this.snackBar.openSnackbar(this.responseMessage, "");
+    }, (error)=>{
       this.ngService.hide();
       if (error.error?.message) {
         this.responseMessage = error.error?.message;
       } else {
         this.responseMessage = GlobalConstants.genericError;
       }
-      this.snackBar.openSnackbar(this.responseMessage, GlobalConstants.error);
+      this.snackBar.openSnackbar(this.responseMessage, GlobalConstants.error)
       console.log(this.responseMessage, GlobalConstants.error);
-    }
-    )
+    })
   }
-
-
 
 }

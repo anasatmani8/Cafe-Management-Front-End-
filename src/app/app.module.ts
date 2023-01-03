@@ -17,6 +17,7 @@ import { AppHeaderComponent } from './layouts/full/header/header.component';
 import { AppSidebarComponent } from './layouts/full/sidebar/sidebar.component';
 import { SignupComponent } from './signup/signup.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -29,7 +30,8 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     AppHeaderComponent,
     AppSidebarComponent,
     SignupComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    LoginComponent
    ],
   imports: [
     BrowserModule,
