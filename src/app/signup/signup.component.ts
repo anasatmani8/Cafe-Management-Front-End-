@@ -112,8 +112,8 @@ export class SignupComponent implements OnInit {
       this.ngService.hide();
       this.dialogRef.close();
       this.responseMessage = response?.message;
+      this.dialogRef.close();
       this.snackBarService.openSnackbar(this.responseMessage, "");
-      this.router.navigate(['/']);
 
     },(error)=>{
       this.ngService.hide();
@@ -124,6 +124,7 @@ export class SignupComponent implements OnInit {
         this.responseMessage = GlobalConstants.genericError;
       }
       this.snackBarService.openSnackbar(this.responseMessage, GlobalConstants.error);
+
       console.log(this.responseMessage, GlobalConstants.error);
     })
   }

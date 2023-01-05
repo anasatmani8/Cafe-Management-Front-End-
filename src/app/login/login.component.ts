@@ -5,6 +5,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { UserService } from './../services/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -33,6 +34,7 @@ export class LoginComponent implements OnInit {
     private userService:UserService,
     public dialogRef:MatDialogRef<LoginComponent>,
     private ngService:NgxSpinnerService,
+    private router:Router,
     private snackBar:SnackbarService) { }
 
   ngOnInit(): void {
@@ -80,8 +82,8 @@ export class LoginComponent implements OnInit {
     this.userService.login(data).subscribe((response:any)=>{
       this.ngService.hide();
       this.dialogRef.close();
-      this.responseMessage = response?.message;
-      this.snackBar.openSnackbar(this.responseMessage, "");
+      localStorage.setItem('token', response.token);
+      this.router.navigate(['cafe/dashbord']);
     }, (error)=>{
       this.ngService.hide();
       if (error.error?.message) {
