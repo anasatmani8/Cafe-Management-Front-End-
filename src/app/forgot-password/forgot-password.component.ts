@@ -79,7 +79,7 @@ export class ForgotPasswordComponent implements OnInit {
       this.ngService.hide();
       this.dialogRef.close();
       localStorage.setItem('token', response.token);
-      this.router.navigate(['cafe/dashbord']);
+      this.router.navigate(['/cafe/dashboard']);
     },(error)=>{
       this.ngService.hide();
       if (error.error?.message) {

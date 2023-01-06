@@ -1,5 +1,6 @@
+import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -45,7 +46,7 @@ import { LoginComponent } from './login/login.component';
     HttpClientModule,
     NgxSpinnerModule
   ],
-  providers: [],
+  providers: [HttpClientModule, {provide:HTTP_INTERCEPTORS, useClass:TokenInterceptorInterceptor, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
