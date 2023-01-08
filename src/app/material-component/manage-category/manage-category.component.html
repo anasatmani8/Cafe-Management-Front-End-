@@ -9,24 +9,24 @@
     Add Category
   </button>
 </mat-card>
-<hr />
+<hr>
 <mat-card>
   <mat-form-field appearance="fill">
     <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" #input />
+    <input matInput (keyup)="applyFilter($event)" #input>
   </mat-form-field>
 </mat-card>
-<hr />
+<hr>
 <div class="responsive_table">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>Name</th>
-      <th mat-cell *matCellDef="let element">{{ element.name }}</th>
+      <td mat-cell *matCellDef="let element">{{element.name}}</td>
     </ng-container>
 
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef>Action</th>
-      <th mat-cell *matCellDef="let element" class="action-link">
+      <td mat-cell *matCellDef="let element" class="action-link">
         <button
           mat-icon-button
           color="primary"
@@ -35,7 +35,7 @@
         >
           <mat-icon>edit</mat-icon>
         </button>
-      </th>
+      </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
     <tr mat-row *matRowDef="let rows; columns: displayedColumns"></tr>

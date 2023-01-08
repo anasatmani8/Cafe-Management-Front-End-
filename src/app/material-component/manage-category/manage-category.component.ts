@@ -16,8 +16,8 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ManageCategoryComponent implements OnInit {
 
 
-  displayedColumns:string[]= ['name', 'edit '];
-  dataSource:any;
+  displayedColumns= ['name', 'edit'];
+  dataSource = new MatTableDataSource<Element>([]);
   responseMessage:any;
   constructor(private categoryService:CategoryService,
     private router:Router,
@@ -35,6 +35,8 @@ export class ManageCategoryComponent implements OnInit {
     this.categoryService.getCategorys().subscribe((response:any)=>{
       this.ngxSpinnerService.hide();
       this.dataSource = new MatTableDataSource(response);
+      console.log(this.dataSource);
+      console.log(response);
 
     },(error)=>{
       this.ngxSpinnerService.hide();
@@ -51,6 +53,7 @@ export class ManageCategoryComponent implements OnInit {
 
   applyFilter(event:Event){
     const filterValue = (event.target as HTMLInputElement).value;
+    console.log(filterValue);
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
