@@ -1,3 +1,4 @@
+import { ConfirmationComponent } from './../dialog/confirmation/confirmation.component';
 import { ProductComponent } from './../dialog/product/product.component';
 import { GlobalConstants } from './../../shared/global-constants';
 import { MatTableDataSource } from '@angular/material/table';
@@ -82,8 +83,58 @@ export class ManageProductComponent implements OnInit {
     })
   }
 
-  handelDeleteActions(values:any){}
+  handelDeleteActions(values:any){
+    const dialogConfi = new MatDialogConfig();
+    dialogConfi.data = {
+      message:'delete '+values.name+' product'
+    };
+    const dialogRef = this.dialog.open(ConfirmationComponent, dialogConfi);
+    const sub = dialogRef.componentInstance.onEmitStatusChange.subscribe((response)=>{
+      this.ngxService.show();
+      this.deleteProduct(values.id);
+      dialogRef.close();
+    })
+  }
 
-  onChange(status:any, id:any){}
+  deleteProduct(id:any){
+    console.log("1.1")
+    this.productService.delete(id).subscribe((response:any)=>{
+      console.log("delete 1");
+      this.ngxService.hide();
+      this.tableData();
+      this.responseMessage = response?.message;
+      this.snackbar.openSnackbar(this.responseMessage, "Success");
+    },(error)=>{
+      this.ngxService.hide();
+      console.log(error);
+      if (error.error?.message) {
+        this.responseMessage = error.error?.message;
+      } else {
+        this.responseMessage = GlobalConstants.genericError;
+      }
+      this.snackbar.openSnackbar(this.responseMessage, GlobalConstants.error);
+    })
+  }
+  onChange(status:any, id:any){
+    var data={
+      status:status.toString(),
+      id:id
+    }
+    console.log(data);
+    this.productService.updateStatus(data).subscribe((response:any)=>{
+      this.ngxService.hide();
+      this.responseMessage = response?.message;
+      this.snackbar.openSnackbar(this.responseMessage, "Success");
+    },(error)=>{
+      this.ngxService.hide();
+      console.log(error);
+      if (error.error?.message) {
+        this.responseMessage = error.error?.message;
+      } else {
+        this.responseMessage = GlobalConstants.genericError;
+      }
+      this.snackbar.openSnackbar(this.responseMessage, GlobalConstants.error);
+    })
+  }
 
 }
