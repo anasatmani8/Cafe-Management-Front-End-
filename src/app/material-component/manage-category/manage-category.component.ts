@@ -1,3 +1,4 @@
+import { CategoryComponent } from './../dialog/category/category.component';
 import { filter } from 'rxjs/operators';
 import { GlobalConstants } from './../../shared/global-constants';
 import { SnackbarService } from './../../services/snackbar.service';
@@ -5,7 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { CategoryService } from './../../services/category.service';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -56,8 +57,36 @@ export class ManageCategoryComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  handeAddActions() {}
+  handeAddActions() {
+    const dialogConf = new MatDialogConfig();
+    dialogConf.data = {
+      action : 'Add'
+    }
+    dialogConf.width = "850px";
+    const dialogRef = this.dialog.open(CategoryComponent, dialogConf);
+    this.router.events.subscribe(()=>{
+      dialogRef.close();
+    });
+    const sub = dialogRef.componentInstance.onAddCategory.subscribe((response)=>{
+      this.tableData();
+    })
+  }
 
-  handelEditActions(value:any){}
+  handelEditActions(values:any){
+    const dialogConf = new MatDialogConfig();
+    dialogConf.data = {
+      action : 'Edit',
+      data:values
+    }
+    dialogConf.width = "850px";
+    const dialogRef = this.dialog.open(CategoryComponent, dialogConf);
+    this.router.events.subscribe(()=>{
+      dialogRef.close();
+    });
+    const sub = dialogRef.componentInstance.onEditCategory.subscribe((response)=>{
+      this.tableData();
+    })
+
+  }
 
 }

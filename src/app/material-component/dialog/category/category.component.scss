@@ -1,0 +1,19 @@
+.mat-toolbar{
+  margin: -24px;
+  width: auto;
+  margin-bottom: 10px;
+  //background-color: #7b1fa2;
+}
+
+.title-center{
+  flex: 1 1 auto;
+  text-align: center;
+}
+
+mat-form-field{
+  padding: 5px;
+}
+
+::ng-deep .error{
+  background: red;
+}

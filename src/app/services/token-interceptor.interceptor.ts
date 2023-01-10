@@ -26,10 +26,11 @@ export class TokenInterceptorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((err)=>{
         if (err instanceof HttpErrorResponse) {
-          console.log(err.url);
+          console.log(err);
           if (err.status == 401 || err.status == 403) {
             if (this.router.url === '/') {}
             else {
+              console.log("tmaa");
               localStorage.clear();
               this.router.navigate(['/']);
             }
