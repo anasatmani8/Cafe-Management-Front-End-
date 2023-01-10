@@ -37,9 +37,7 @@ export class ProductService {
 
   delete(id:any){
     console.log("start deleting"+id+"=>id")
-    return this.httpClient.delete(this.url+"/product/delete/"+id,{
-      headers: new HttpHeaders().set("Content-Type", "application/json")
-    })
+    return this.httpClient.get(this.url+"/product/delete/"+id)
   }
 
 }
