@@ -71,7 +71,6 @@ export class ProductComponent implements OnInit {
     }
 
     this.getCategorys();
-    console.log(this.getCategorys()+"1");
 
     this.productForm.valueChanges
     .subscribe((data: any) => this.onValueChanged(data));
@@ -103,7 +102,6 @@ export class ProductComponent implements OnInit {
   getCategorys(){
     this.categoryService.getCategorys().subscribe((response)=>{
       this.categorys = response;
-      console.log(this.categorys.name+"2")
     }, (error:any)=>{
       if(error.error?.message) {
         this.responseMessage = error.error?.message;
@@ -124,7 +122,6 @@ export class ProductComponent implements OnInit {
 
   add(){
     var formData = this.productForm.value;
-    console.log(formData.categoryId)+" id  add";
     var data = {
       name:formData.name,
       categoryId:formData.categoryId,
