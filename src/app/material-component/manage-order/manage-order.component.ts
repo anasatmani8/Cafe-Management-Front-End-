@@ -20,7 +20,7 @@ export class ManageOrderComponent implements OnInit {
   categorys:any=[];
   products:any=[];
   total:number=0;
-  repsonseMessage:any;
+  responseMessage:any;
   price:any;
 
   formErrors : { [char: string]: string } = {
@@ -64,6 +64,7 @@ export class ManageOrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.ngxSpinner.show();
+    this.getCategorys();
     this.manageOrderForm = this.formBuilder.group({
       name:[null, [Validators.required, Validators.pattern(GlobalConstants.nameRegex), Validators.minLength(2), Validators.maxLength(25)]],
       email:[null, [Validators.required, Validators.email, Validators.pattern(GlobalConstants.emailRegex)]],
@@ -74,6 +75,44 @@ export class ManageOrderComponent implements OnInit {
       price:[null, [Validators.required ]],
       total:[0, [Validators.required ]],
       quantity:[0, [Validators.required ]],
+    })
+    this.manageOrderForm.valueChanges
+    .subscribe((data: any) => this.onValueChanged(data));
+
+  this.onValueChanged(); // (re)set validation messages now
+
+  }
+  onValueChanged(data?: any) {
+    if (!this.manageOrderForm) { return; }
+    const form = this.manageOrderForm;
+    for (const field in this.formErrors) {
+      if (this.formErrors.hasOwnProperty(field)) {
+        // clear previous error message (if any)
+
+        this.formErrors[field] = '';
+        const control = form.get(field);
+        if (control && control.dirty && !control.valid) {
+          const messages = this.validationMessages[field];
+          for (const key in control.errors) {
+            if (control.errors.hasOwnProperty(key)) {
+              this.formErrors[field] += messages[key] + ' ';
+            }
+          }
+        }
+      }
+    }
+  }
+
+  getCategorys(){
+    this.categoryService.getCategorys().subscribe((response)=>{
+      this.categorys = response;
+    }, (error:any)=>{
+      if(error.error?.message) {
+        this.responseMessage = error.error?.message;
+      } else {
+        this.responseMessage = GlobalConstants.genericError;
+      }
+      this.snackBar.openSnackbar(this.responseMessage, GlobalConstants.error);
     })
   }
 
