@@ -6,6 +6,7 @@ import { CategoryService } from './../../services/category.service';
 import { ProductService } from './../../services/product.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-manage-order',
@@ -249,5 +250,51 @@ export class ManageOrderComponent implements OnInit {
       this.snackBar.openSnackbar(GlobalConstants.productExistError, GlobalConstants.error);
     }
 
+  }
+
+  handelDeleteAction(value:any,element:any){
+    this.total -= element.total;
+    this.dataSource.splice(value, 1);
+    this.dataSource = [...this.dataSource];
+  }
+
+  submitAction(){
+    this.ngxSpinner.show();
+    var formData = this.manageOrderForm.value;
+    var data = {
+      name:formData.name,
+      email:formData.email,
+      contactNumber:formData.contactNumber,
+      paymentMethod:formData.paymentMethod,
+      total:this.total,
+      productDetails:JSON.stringify(this.dataSource),
+
+    }
+    this.billService.generateReport(data).subscribe((response:any)=>{
+      this.downloadFile(response?.uuid);
+      this.manageOrderForm.reset();
+      this.dataSource = [];
+      this.total = 0;
+    },
+      (error: any) => {
+        this.ngxSpinner.hide();
+        if (error.error?.message) {
+          this.responseMessage = error.error?.message;
+        } else {
+          this.responseMessage = GlobalConstants.genericError;
+        }
+        this.snackBar.openSnackbar(this.responseMessage, GlobalConstants.error);
+      }
+    );
+  }
+
+  downloadFile(fileName:any){
+    var data = {
+      uuid:fileName
+    }
+    this.billService.getPdf(data).subscribe((response:any)=>{
+      saveAs(response, fileName+'.pdf');
+      this.ngxSpinner.hide();
+    })
   }
 }
