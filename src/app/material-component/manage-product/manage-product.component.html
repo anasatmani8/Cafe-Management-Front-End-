@@ -44,7 +44,7 @@
           matTooltip="Edit"
           (click)="handelEditActions(element)"
         >
-          <mat-icon>edit</mat-icon>
+          <mat-icon color="warning">edit</mat-icon>
         </button>
         <button
           mat-icon-button
@@ -54,7 +54,8 @@
         >
           <mat-icon>delete</mat-icon>
         </button>
-        <mat-slide-toggle (change)="onChange($event.checked, element.id)" matTooltip="Activate or Desactivate Product" color="primary" [checked]="element.status">
+        <mat-slide-toggle (change)="onChange($event.checked, element.id)"
+           matTooltip="Activate or Desactivate validity" [checked]="element.status">
         </mat-slide-toggle>
       </th>
     </ng-container>
@@ -62,3 +63,5 @@
     <tr mat-row *matRowDef="let row; columns:displayedColumns"></tr>
   </table>
 </div>
+<!-- [ngStyle]="{'color':element.status === 'true' ? 'green' : 'red' }" -->
+

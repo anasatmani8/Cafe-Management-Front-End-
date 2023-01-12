@@ -1,5 +1,4 @@
 import { CategoryComponent } from './../dialog/category/category.component';
-import { filter } from 'rxjs/operators';
 import { GlobalConstants } from './../../shared/global-constants';
 import { SnackbarService } from './../../services/snackbar.service';
 import { NgxSpinnerService } from 'ngx-spinner';
