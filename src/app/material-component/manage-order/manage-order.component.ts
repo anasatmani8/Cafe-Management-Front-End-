@@ -157,7 +157,7 @@ export class ManageOrderComponent implements OnInit {
 
   getProductByCategory(value: any) {
     this.productService.getProductByCategory(value.id).subscribe(
-      (response:any) => {
+      (response: any) => {
         this.products = response;
         this.manageOrderForm.controls['price'].setValue('');
         this.manageOrderForm.controls['quantity'].setValue('');
@@ -199,19 +199,13 @@ export class ManageOrderComponent implements OnInit {
   setQuantity(value: any) {
     var product = this.manageOrderForm.controls['product'].value;
     var temp = this.manageOrderForm.controls['quantity'].value;
-    console.log(this.manageOrderForm.controls['quantity'].value,"quantity");
+    console.log(this.manageOrderForm.controls['quantity'].value, 'quantity');
 
     if (temp > 0) {
-      this.manageOrderForm.controls['total'].setValue(
-        temp *
-          product.price
-      );
+      this.manageOrderForm.controls['total'].setValue(temp * product.price);
     } else if (temp != '') {
       this.manageOrderForm.controls['quantity'].setValue('1');
-      this.manageOrderForm.controls['total'].setValue(
-        temp*
-          product.price
-      );
+      this.manageOrderForm.controls['total'].setValue(temp * product.price);
     }
   }
 
@@ -244,11 +238,16 @@ export class ManageOrderComponent implements OnInit {
   }
 
   add() {
+    console.log("1");
     var formData = this.manageOrderForm.value;
+    console.log(formData,'form data');
     var productName = this.dataSource.find(
       (e: { id: number }) => e.id == formData.product.id
     );
+    console.log(formData.product.id,"id d product");
+    console.log(productName,"productname");
     if (productName === undefined) {
+      console.log("2");
       this.total += formData.total;
       this.dataSource.push({
         id: formData.id,
@@ -258,6 +257,7 @@ export class ManageOrderComponent implements OnInit {
         price: formData.price,
         total: formData.total,
       });
+      console.log("3");
       this.dataSource = [...this.dataSource];
       this.snackBar.openSnackbar(GlobalConstants.productAdded, 'Success');
     } else {
@@ -274,7 +274,7 @@ export class ManageOrderComponent implements OnInit {
     this.dataSource = [...this.dataSource];
   }
 
-  submitAction() {
+  async submitAction() {
     this.ngxSpinner.show();
     var formData = this.manageOrderForm.value;
     var data = {
@@ -282,12 +282,14 @@ export class ManageOrderComponent implements OnInit {
       email: formData.email,
       contactNumber: formData.contactNumber,
       paymentMethod: formData.paymentMethod,
-      total: this.total,
+      total: this.total.toString(),
       productDetails: JSON.stringify(this.dataSource),
     };
+    console.log(data);
     this.billService.generateReport(data).subscribe(
       (response: any) => {
-        this.downloadFile(response?.uuid);
+        var r = data;
+        this.downloadFile(response?.uuid, data);
         this.manageOrderForm.reset();
         this.dataSource = [];
         this.total = 0;
@@ -304,9 +306,15 @@ export class ManageOrderComponent implements OnInit {
     );
   }
 
-  downloadFile(fileName: any) {
+  downloadFile(fileName: any, dataa:any) {
     var data = {
       uuid: fileName,
+      name: dataa.name,
+      email: dataa.email,
+      contactNumber: dataa.contactNumber,
+      paymentMethod: dataa.paymentMethod,
+      total: this.total.toString(),
+      productDetails: JSON.stringify(this.dataSource),
     };
     this.billService.getPdf(data).subscribe(
       (response: any) => {
