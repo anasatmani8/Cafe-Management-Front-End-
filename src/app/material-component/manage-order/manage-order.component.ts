@@ -51,6 +51,9 @@ export class ManageOrderComponent implements OnInit {
     category: {
       required: 'category is required.',
     },
+    quantity: {
+      required: 'Quantity is required.',
+    },
     contactNumber: {
       required: 'Tel. number is required.',
       pattern: 'Tel. number must contain only numbers.',
@@ -194,18 +197,20 @@ export class ManageOrderComponent implements OnInit {
   }
 
   setQuantity(value: any) {
+    var product = this.manageOrderForm.controls['product'].value;
     var temp = this.manageOrderForm.controls['quantity'].value;
-    console.log(temp);
+    console.log(this.manageOrderForm.controls['quantity'].value,"quantity");
+
     if (temp > 0) {
       this.manageOrderForm.controls['total'].setValue(
-        this.manageOrderForm.controls['qantity'].value *
-          this.manageOrderForm.controls['price'].value
+        temp *
+          product.price
       );
     } else if (temp != '') {
       this.manageOrderForm.controls['quantity'].setValue('1');
       this.manageOrderForm.controls['total'].setValue(
-        this.manageOrderForm.controls['qantity'].value *
-          this.manageOrderForm.controls['price'].value
+        temp*
+          product.price
       );
     }
   }

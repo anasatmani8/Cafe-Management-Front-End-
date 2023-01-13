@@ -84,7 +84,7 @@
 
         <mat-form-field appearance="fill" fxFlex>
           <mat-label>Quantity </mat-label>
-          <input matInput formControlName="quantity" (keyup)="setQuantity($event)" #input>
+          <input  matInput formControlName="quantity" required (keyup)="setQuantity($event)" #input>
           <mat-error *ngIf="formErrors['quantity']">{{formErrors["quantity"]}}</mat-error>
         </mat-form-field>
 
