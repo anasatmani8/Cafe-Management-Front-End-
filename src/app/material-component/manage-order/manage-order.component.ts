@@ -137,6 +137,7 @@ export class ManageOrderComponent implements OnInit {
   getCategorys() {
     this.categoryService.getCategorys().subscribe(
       (response) => {
+        this.ngxSpinner.hide();
         this.categorys = response;
       },
       (error: any) => {
@@ -153,7 +154,7 @@ export class ManageOrderComponent implements OnInit {
 
   getProductByCategory(value: any) {
     this.productService.getProductByCategory(value.id).subscribe(
-      (response) => {
+      (response:any) => {
         this.products = response;
         this.manageOrderForm.controls['price'].setValue('');
         this.manageOrderForm.controls['quantity'].setValue('');
@@ -174,8 +175,9 @@ export class ManageOrderComponent implements OnInit {
   getProductDetails(value: any) {
     this.productService.getProductById(value.id).subscribe(
       (response: any) => {
-        this.price = response.price;
-        this.manageOrderForm.controls['price'].setValue(response.price);
+        var product = this.manageOrderForm.controls['product'].value;
+        this.price = product.price;
+        this.manageOrderForm.controls['price'].setValue(this.price);
         this.manageOrderForm.controls['quantity'].setValue('1');
         this.manageOrderForm.controls['total'].setValue(this.price * 1);
       },
@@ -235,47 +237,55 @@ export class ManageOrderComponent implements OnInit {
     return false;
   }
 
-  add(){
+  add() {
     var formData = this.manageOrderForm.value;
-    var productName = this.dataSource.find((e:{id:number;})=>e.id == formData.product.id);
+    var productName = this.dataSource.find(
+      (e: { id: number }) => e.id == formData.product.id
+    );
     if (productName === undefined) {
       this.total += formData.total;
       this.dataSource.push({
-        id:formData.id, name:formData.product.name, category:formData.category.name,
-        quantity:formData.quantity, price:formData.price, total:formData.total
+        id: formData.id,
+        name: formData.product.name,
+        category: formData.category.name,
+        quantity: formData.quantity,
+        price: formData.price,
+        total: formData.total,
       });
       this.dataSource = [...this.dataSource];
-      this.snackBar.openSnackbar(GlobalConstants.productAdded, "Success");
+      this.snackBar.openSnackbar(GlobalConstants.productAdded, 'Success');
     } else {
-      this.snackBar.openSnackbar(GlobalConstants.productExistError, GlobalConstants.error);
+      this.snackBar.openSnackbar(
+        GlobalConstants.productExistError,
+        GlobalConstants.error
+      );
     }
-
   }
 
-  handelDeleteAction(value:any,element:any){
+  handelDeleteAction(value: any, element: any) {
     this.total -= element.total;
     this.dataSource.splice(value, 1);
     this.dataSource = [...this.dataSource];
   }
 
-  submitAction(){
+  submitAction() {
     this.ngxSpinner.show();
     var formData = this.manageOrderForm.value;
     var data = {
-      name:formData.name,
-      email:formData.email,
-      contactNumber:formData.contactNumber,
-      paymentMethod:formData.paymentMethod,
-      total:this.total,
-      productDetails:JSON.stringify(this.dataSource),
-
-    }
-    this.billService.generateReport(data).subscribe((response:any)=>{
-      this.downloadFile(response?.uuid);
-      this.manageOrderForm.reset();
-      this.dataSource = [];
-      this.total = 0;
-    },
+      name: formData.name,
+      email: formData.email,
+      contactNumber: formData.contactNumber,
+      paymentMethod: formData.paymentMethod,
+      total: this.total,
+      productDetails: JSON.stringify(this.dataSource),
+    };
+    this.billService.generateReport(data).subscribe(
+      (response: any) => {
+        this.downloadFile(response?.uuid);
+        this.manageOrderForm.reset();
+        this.dataSource = [];
+        this.total = 0;
+      },
       (error: any) => {
         this.ngxSpinner.hide();
         if (error.error?.message) {
@@ -288,13 +298,24 @@ export class ManageOrderComponent implements OnInit {
     );
   }
 
-  downloadFile(fileName:any){
+  downloadFile(fileName: any) {
     var data = {
-      uuid:fileName
-    }
-    this.billService.getPdf(data).subscribe((response:any)=>{
-      saveAs(response, fileName+'.pdf');
-      this.ngxSpinner.hide();
-    })
+      uuid: fileName,
+    };
+    this.billService.getPdf(data).subscribe(
+      (response: any) => {
+        saveAs(response, fileName + '.pdf');
+        this.ngxSpinner.hide();
+      },
+      (error: any) => {
+        this.ngxSpinner.hide();
+        if (error.error?.message) {
+          this.responseMessage = error.error?.message;
+        } else {
+          this.responseMessage = GlobalConstants.genericError;
+        }
+        this.snackBar.openSnackbar(this.responseMessage, GlobalConstants.error);
+      }
+    );
   }
 }
