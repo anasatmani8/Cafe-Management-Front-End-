@@ -103,7 +103,7 @@ export class ManageOrderComponent implements OnInit {
       product: [null, [Validators.required]],
       price: [null, [Validators.required]],
       total: [0, [Validators.required]],
-      quantity: [null, [Validators.required]],
+      quantity: [null],
     });
     this.manageOrderForm.valueChanges.subscribe((data: any) =>
       this.onValueChanged(data)
@@ -195,6 +195,7 @@ export class ManageOrderComponent implements OnInit {
 
   setQuantity(value: any) {
     var temp = this.manageOrderForm.controls['quantity'].value;
+    console.log(temp);
     if (temp > 0) {
       this.manageOrderForm.controls['total'].setValue(
         this.manageOrderForm.controls['qantity'].value *
