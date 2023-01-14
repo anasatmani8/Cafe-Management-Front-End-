@@ -246,24 +246,20 @@ export class ManageOrderComponent implements OnInit {
 
     console.log(this.dataSource, 'all data');
     var productName = this.dataSource.find(
-      (e: { id: number; }) => e.id == formData.product.id
+      (e: { id: number }) => e.id == formData.product.id
     );
     console.log(formData.product.id, 'id d product');
     console.log(productName, 'productname');
 
-      var flag = 0;
+    var flag = 0;
 
-      for(var i=0; i<this.dataSource.length; i++) {
-        if(formData === this.dataSource[i]) {
-             flag = 1;
-        }
+    for (var i = 0; i < this.dataSource.length; i++) {
+      if (formData === this.dataSource[i]) {
+        flag = 1;
+      }
     }
 
     console.log(flag);
-
-
-
-
 
     if (productName === undefined) {
       console.log('2');
@@ -275,7 +271,7 @@ export class ManageOrderComponent implements OnInit {
         quantity: formData.quantity,
         price: formData.price,
         total: formData.total,
-        alreadyAdded:"yes"
+        alreadyAdded: 'yes',
       });
       console.log(this.dataSource.alreadyAdded);
       this.dataSource = [...this.dataSource];
