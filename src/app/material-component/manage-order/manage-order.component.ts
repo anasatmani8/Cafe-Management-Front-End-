@@ -107,6 +107,7 @@ export class ManageOrderComponent implements OnInit {
       price: [null, [Validators.required]],
       total: [0, [Validators.required]],
       quantity: [null],
+      id: [0],
     });
     this.manageOrderForm.valueChanges.subscribe((data: any) =>
       this.onValueChanged(data)
@@ -183,6 +184,7 @@ export class ManageOrderComponent implements OnInit {
         this.manageOrderForm.controls['price'].setValue(this.price);
         this.manageOrderForm.controls['quantity'].setValue('1');
         this.manageOrderForm.controls['total'].setValue(this.price * 1);
+        this.manageOrderForm.controls['id'].setValue(value.id);
       },
       (error: any) => {
         this.ngxSpinner.hide();
@@ -238,16 +240,33 @@ export class ManageOrderComponent implements OnInit {
   }
 
   add() {
-    console.log("1");
+    console.log('1');
     var formData = this.manageOrderForm.value;
-    console.log(formData,'form data');
+    console.log(formData, 'new data');
+
+    console.log(this.dataSource, 'all data');
     var productName = this.dataSource.find(
-      (e: { id: number }) => e.id == formData.product.id
+      (e: { id: number; }) => e.id == formData.product.id
     );
-    console.log(formData.product.id,"id d product");
-    console.log(productName,"productname");
+    console.log(formData.product.id, 'id d product');
+    console.log(productName, 'productname');
+
+      var flag = 0;
+
+      for(var i=0; i<this.dataSource.length; i++) {
+        if(formData === this.dataSource[i]) {
+             flag = 1;
+        }
+    }
+
+    console.log(flag);
+
+
+
+
+
     if (productName === undefined) {
-      console.log("2");
+      console.log('2');
       this.total += formData.total;
       this.dataSource.push({
         id: formData.id,
@@ -256,9 +275,11 @@ export class ManageOrderComponent implements OnInit {
         quantity: formData.quantity,
         price: formData.price,
         total: formData.total,
+        alreadyAdded:"yes"
       });
-      console.log("3");
+      console.log(this.dataSource.alreadyAdded);
       this.dataSource = [...this.dataSource];
+
       this.snackBar.openSnackbar(GlobalConstants.productAdded, 'Success');
     } else {
       this.snackBar.openSnackbar(
@@ -288,11 +309,12 @@ export class ManageOrderComponent implements OnInit {
     console.log(data);
     this.billService.generateReport(data).subscribe(
       (response: any) => {
-        var r = data;
-        this.downloadFile(response?.uuid, data);
-        this.manageOrderForm.reset();
+        this.ngxSpinner.hide();
+        /*var r = data;
+        this.downloadFile(response?.uuid, data);*/
         this.dataSource = [];
         this.total = 0;
+        this.snackBar.openSnackbar('Check Your Downloads', 'Ok');
       },
       (error: any) => {
         this.ngxSpinner.hide();
@@ -306,7 +328,7 @@ export class ManageOrderComponent implements OnInit {
     );
   }
 
-  downloadFile(fileName: any, dataa:any) {
+  downloadFile(fileName: any, dataa: any) {
     var data = {
       uuid: fileName,
       name: dataa.name,

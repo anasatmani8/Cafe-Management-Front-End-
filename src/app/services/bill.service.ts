@@ -19,7 +19,7 @@ export class BillService {
 
   getPdf(data: any): Observable<Blob> {
     return this.httpClient.post(this.url + '/bill/getPdf', data, {
-      responseType: 'blob',
+      responseType: 'blob'
     });
   }
 }

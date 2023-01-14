@@ -79,6 +79,7 @@
         <mat-form-field appearance="fill" fxFlex>
           <mat-label>Price </mat-label>
           <input matInput formControlName="price" readonly required>
+          <input type="hidden" formControlName="id">
           <mat-error *ngIf="formErrors['price']">{{formErrors["price"]}}</mat-error>
         </mat-form-field>
 

@@ -3,10 +3,20 @@ import { SnackbarService } from './../services/snackbar.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DashbordService } from './../services/dashbord.service';
 import { Component, AfterViewInit } from '@angular/core';
+import { flyInOut, expand } from '../animations/animation';
 @Component({
 	selector: 'app-dashboard',
 	templateUrl: './dashboard.component.html',
-	styleUrls: ['./dashboard.component.scss']
+	styleUrls: ['./dashboard.component.scss'],
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    '[@flyInOut]': 'true',
+    'style': 'display: block;'
+    },
+    animations: [
+      flyInOut(),
+      expand()
+    ]
 })
 export class DashboardComponent implements AfterViewInit {
 
