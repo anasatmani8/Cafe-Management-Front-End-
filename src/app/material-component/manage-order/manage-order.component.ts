@@ -275,6 +275,7 @@ export class ManageOrderComponent implements OnInit {
       });
       console.log(this.dataSource.alreadyAdded);
       this.dataSource = [...this.dataSource];
+      //formData = null;
 
       this.snackBar.openSnackbar(GlobalConstants.productAdded, 'Success');
     } else {
@@ -310,6 +311,7 @@ export class ManageOrderComponent implements OnInit {
         this.downloadFile(response?.uuid, data);*/
         this.dataSource = [];
         this.total = 0;
+        this.manageOrderForm.reset();
         this.snackBar.openSnackbar('Check Your Downloads', 'Ok');
       },
       (error: any) => {
