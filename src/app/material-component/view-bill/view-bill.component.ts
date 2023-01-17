@@ -65,7 +65,7 @@ export class ViewBillComponent implements OnInit {
       data:values
     };
     dialogConfig.width = "100p%";
-    const dialogRef = this.dialog.open( ViewBillProductsComponent);
+    const dialogRef = this.dialog.open(ViewBillProductsComponent, dialogConfig);
     this.router.events.subscribe(()=>{
       dialogRef.close();
     })

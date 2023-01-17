@@ -43,6 +43,7 @@ export class CategoryComponent implements OnInit {
     this.categoryForm = this.formBuilder.group({
       name:[null, [Validators.required, Validators.minLength(2), Validators.maxLength(25)]]
     });
+    console.log(this.dialogData);
     if (this.dialogData.action === 'Edit') {
       this.dialogAction = "Edit";
       this.action = "Update";
