@@ -1,4 +1,4 @@
-import { saveAs } from 'file-saver';
+
 import { ConfirmationComponent } from './../dialog/confirmation/confirmation.component';
 import { ViewBillProductsComponent } from './../dialog/view-bill-products/view-bill-products.component';
 import { GlobalConstants } from './../../shared/global-constants';
@@ -75,8 +75,10 @@ export class ViewBillComponent implements OnInit {
 
   downloadReportAction(dataa:any){
     this.ngxSpinnerService.show();
+    console.log(dataa);
+
     var data  = {
-      uuid: dataa.name,
+      uuid: dataa.uuid,
       name: dataa.name,
       email: dataa.email,
       contactNumber: dataa.contactNumber,
@@ -84,10 +86,26 @@ export class ViewBillComponent implements OnInit {
       total: dataa.total,
       productDetail: dataa.productDetail ,
     }
-    this.billService.getPdf(dataa).subscribe((response:any)=>{
-      saveAs(response, dataa.uuid+'.pdf');
-      this.ngxSpinnerService.hide();
-    })
+    this.billService.generateReport(data).subscribe(
+      (response: any) => {
+        this.ngxSpinnerService.hide();
+        /*var r = data;
+        this.downloadFile(response?.uuid, data);
+        this.dataSource = [];
+        this.total = 0;
+        this.manageOrderForm.reset();*/
+        this.snackBar.openSnackbar('Check Your Downloads', 'Ok');
+      },
+      (error: any) => {
+        this.ngxSpinnerService.hide();
+        if (error.error?.message) {
+          this.responseMessage = error.error?.message;
+        } else {
+          this.responseMessage = GlobalConstants.genericError;
+        }
+        this.snackBar.openSnackbar(this.responseMessage, GlobalConstants.error);
+      }
+    );
   }
 
   handelDeleteAction(values:any){

@@ -8,7 +8,12 @@
       <div class="card">
         <div class="container">
           <h2 class="title">Total Category:</h2>
-          <h1 class="title">{{ data?.category }}</h1>
+          <h1 class="title">
+            {{ data?.category
+            }}<span style="margin-left: 10px" class="float-right"
+              ><mat-icon>toc</mat-icon></span
+            >
+          </h1>
           <p>
             <button class="button" routerLink="['/cafe/category']">
               View Category
@@ -21,7 +26,12 @@
       <div class="card">
         <div class="container">
           <h2 class="title">Total Product:</h2>
-          <h1 class="title">{{ data?.product }}</h1>
+          <h1 class="title">
+            {{ data?.product
+            }}<span style="margin-left: 10px" class="float-right"
+              ><mat-icon>inventory_2</mat-icon></span
+            >
+          </h1>
           <p>
             <button class="button" routerLink="['/cafe/product']">
               View Product
@@ -34,7 +44,11 @@
       <div class="card">
         <div class="container">
           <h2 class="title">Total Bill:</h2>
-          <h1 class="title">{{ data?.bill }}</h1>
+          <h1 class="title">
+            {{ data?.bill }}<span style="margin-left: 10px" class="float-right"
+            ><mat-icon>shopping_basket</mat-icon></span
+          >
+        </h1>
           <p>
             <button class="button" routerLink="['/cafe/bill']">
               View Bill
