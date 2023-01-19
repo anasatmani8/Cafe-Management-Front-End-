@@ -48,6 +48,7 @@ export class ManageUserComponent implements OnInit {
 
   handelChangeAction(status:any, id:any){
     this.ngxService.show();
+    console.log(status,id);
     var data = {
       status:status.toString(),
       id:id
