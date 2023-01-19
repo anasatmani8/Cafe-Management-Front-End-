@@ -301,9 +301,9 @@ export class ManageOrderComponent implements OnInit {
       contactNumber: formData.contactNumber,
       paymentMethod: formData.paymentMethod,
       total: this.total.toString(),
-      productDetails: JSON.stringify(this.dataSource),
+      productDetail: JSON.stringify(this.dataSource),
     };
-    console.log(data);
+    console.log(data,'data submit generate');
     this.billService.generateReport(data).subscribe(
       (response: any) => {
         this.ngxSpinner.hide();
