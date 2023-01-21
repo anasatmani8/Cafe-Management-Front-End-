@@ -19,6 +19,7 @@ export class ManageCategoryComponent implements OnInit {
   displayedColumns= ['name', 'edit'];
   dataSource = new MatTableDataSource<Element>([]);
   responseMessage:any;
+  
   constructor(private categoryService:CategoryService,
     private router:Router,
     private ngxSpinnerService:NgxSpinnerService,

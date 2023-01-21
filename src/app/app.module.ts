@@ -14,9 +14,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from './shared/shared.module';
 import { FullComponent } from './layouts/full/full.component';
+import { MatButtonModule } from '@angular/material/button';
 import { AppHeaderComponent } from './layouts/full/header/header.component';
 import { AppSidebarComponent } from './layouts/full/sidebar/sidebar.component';
 import { SignupComponent } from './signup/signup.component';
+import { MatIconModule } from '@angular/material/icon';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 
@@ -44,7 +46,10 @@ import { LoginComponent } from './login/login.component';
     FlexLayoutModule,
     SharedModule,
     HttpClientModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatIconModule,
+    MatButtonModule,
+
   ],
   providers: [HttpClientModule, {provide:HTTP_INTERCEPTORS, useClass:TokenInterceptorInterceptor, multi:true}],
   bootstrap: [AppComponent]
