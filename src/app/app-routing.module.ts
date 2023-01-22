@@ -7,6 +7,7 @@ import { FullComponent } from './layouts/full/full.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'category', component: CategoryMenuComponent },
   {
     path: 'cafe',
     component: FullComponent,
@@ -35,8 +36,7 @@ const routes: Routes = [
       },
     ]
   },
-  { path: '**', component: HomeComponent },
-  { path: 'category', component: CategoryMenuComponent }
+  { path: '**', component: HomeComponent }
 ];
 
 @NgModule({
