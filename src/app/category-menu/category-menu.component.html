@@ -1,6 +1,27 @@
+<div class="bg-image"></div>
+<div class="wrapper sticky">
+  <nav class="navbar-fixed-top">
+    <a href="#" class="logo">
+      <mat-icon>storefront</mat-icon> Cafe Management System
+    </a>
 
+    <ul>
+      <li>
+        <a mat-button [routerLink]="['/category/']"
+          ><span style="margin-left: 00px" class="fa fa-list fa-lg"></span>
+          Menu</a
+        >
 
-<div class="container"
+        <a (click)="handelSignupAction()"><mat-icon >save</mat-icon>Signup</a>
+        <a (click)="handelForgotPasswordAction()"><mat-icon>send</mat-icon>Forgot Password</a>
+        <a (click)="handelLoginAction()"><mat-icon>login</mat-icon>Login</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<br>
+
+<div style="margin-top: 100px;" class="container"
 fxLayout="column"
 fxLayoutGap="10px">
 
@@ -14,8 +35,8 @@ fxLayoutGap="10px">
 
 <div fxFlex *ngIf="dataSource" [@expand]>
 <mat-grid-list cols="2" rowHeight="200px">
-  <mat-grid-tile *ngFor="let dish " appHighlight>
-    <img height="200px" src="../../assets/img/tajine.jpg" alt={{dish.name}}>
+  <mat-grid-tile *ngFor="let dish of dataSource" appHighlight>
+    <img height="200px" src="../../assets/img/{{dish.image}}" alt={{dish.name}}>
  <mat-grid-tile-footer>
  <h1 > {{dish.name | uppercase}} </h1>
 

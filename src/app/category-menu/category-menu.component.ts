@@ -1,14 +1,19 @@
+import { UserService } from './../services/user.service';
+import { LoginComponent } from './../login/login.component';
+import { ForgotPasswordComponent } from './../forgot-password/forgot-password.component';
+import { SignupComponent } from './../signup/signup.component';
 import { environment } from 'src/environments/environment';
 
 import { GlobalConstants } from './../shared/global-constants';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { CategoryService } from './../services/category.service';
 import { Component, OnInit } from '@angular/core';
 import { expand, flyInOut } from '../animations/animation';
+import { Category } from '../shared/category';
 
 @Component({
   selector: 'app-category-menu',
@@ -25,7 +30,7 @@ import { expand, flyInOut } from '../animations/animation';
 })
 export class CategoryMenuComponent implements OnInit {
 
-  dataSource = new MatTableDataSource<Element>([]);
+  dataSource! :Category[];
   responseMessage:any;
   baseURL = environment.apiUrl;
   constructor(private categoryService:CategoryService,
@@ -33,11 +38,11 @@ export class CategoryMenuComponent implements OnInit {
     private ngxSpinnerService:NgxSpinnerService,
     private snackbarService:SnackbarService,
     private dialog:MatDialog,
+    private userService:UserService
     ) { }
 
 
     ngOnInit(): void {
-
 
         this.ngxSpinnerService.show();
         this.tableData();
@@ -48,7 +53,7 @@ export class CategoryMenuComponent implements OnInit {
         console.log('start getting categorys')
         this.categoryService.getCategorys().subscribe((response:any)=>{
           this.ngxSpinnerService.hide();
-          this.dataSource = new MatTableDataSource(response);
+          this.dataSource = response;
           console.log(this.dataSource);
           console.log(response);
 
@@ -62,6 +67,28 @@ export class CategoryMenuComponent implements OnInit {
           }
           this.snackbarService.openSnackbar(this.responseMessage, GlobalConstants.error);
         })
+      }
+
+      categoryMenu(){
+        this.router.navigate(['/cafe/category']);
+      }
+
+      handelSignupAction(){
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.width = "550px";
+        this.dialog.open(SignupComponent, dialogConfig);
+      }
+
+      handelForgotPasswordAction(){
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.width = "550px";
+        this.dialog.open(ForgotPasswordComponent, dialogConfig);
+      }
+
+      handelLoginAction(){
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.width = "550px";
+        this.dialog.open(LoginComponent, dialogConfig);
       }
 
     }

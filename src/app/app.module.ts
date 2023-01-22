@@ -22,6 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
 import { CategoryMenuComponent } from './category-menu/category-menu.component';
+import { HeaderComponent } from './header/header.component';
 
 
 
@@ -37,6 +38,7 @@ import { CategoryMenuComponent } from './category-menu/category-menu.component';
     ForgotPasswordComponent,
     LoginComponent,
     CategoryMenuComponent,
+    HeaderComponent,
 
    ],
   imports: [
