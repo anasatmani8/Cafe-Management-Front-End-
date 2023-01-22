@@ -1,3 +1,4 @@
+import { CategoryMenuComponent } from './category-menu/category-menu.component';
 import { RouteGuardService } from './services/route-guard.service';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -31,10 +32,11 @@ const routes: Routes = [
           data:{
             expectedRole:['admin', 'user']
           }
-      }
+      },
     ]
   },
-  { path: '**', component: HomeComponent }
+  { path: '**', component: HomeComponent },
+  { path: 'category', component: CategoryMenuComponent }
 ];
 
 @NgModule({

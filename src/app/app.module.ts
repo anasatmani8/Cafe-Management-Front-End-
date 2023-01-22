@@ -21,6 +21,7 @@ import { SignupComponent } from './signup/signup.component';
 import { MatIconModule } from '@angular/material/icon';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { LoginComponent } from './login/login.component';
+import { CategoryMenuComponent } from './category-menu/category-menu.component';
 
 
 
@@ -34,7 +35,9 @@ import { LoginComponent } from './login/login.component';
     AppSidebarComponent,
     SignupComponent,
     ForgotPasswordComponent,
-    LoginComponent
+    LoginComponent,
+    CategoryMenuComponent,
+
    ],
   imports: [
     BrowserModule,

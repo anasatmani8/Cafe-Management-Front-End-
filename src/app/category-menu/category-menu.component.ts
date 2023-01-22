@@ -1,0 +1,68 @@
+import { environment } from 'src/environments/environment';
+
+import { GlobalConstants } from './../shared/global-constants';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { SnackbarService } from 'src/app/services/snackbar.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
+import { CategoryService } from './../services/category.service';
+import { Component, OnInit } from '@angular/core';
+import { expand, flyInOut } from '../animations/animation';
+
+@Component({
+  selector: 'app-category-menu',
+  templateUrl: './category-menu.component.html',
+  styleUrls: ['./category-menu.component.scss'],
+  host: {
+    '[@flyInOut]': 'true',
+    'style': 'display: block;'
+    },
+    animations: [
+      flyInOut(),
+      expand()
+    ]
+})
+export class CategoryMenuComponent implements OnInit {
+
+  dataSource = new MatTableDataSource<Element>([]);
+  responseMessage:any;
+  baseURL = environment.apiUrl;
+  constructor(private categoryService:CategoryService,
+    private router:Router,
+    private ngxSpinnerService:NgxSpinnerService,
+    private snackbarService:SnackbarService,
+    private dialog:MatDialog,
+    ) { }
+
+
+    ngOnInit(): void {
+
+
+        this.ngxSpinnerService.show();
+        this.tableData();
+      }
+
+
+      tableData(){
+        console.log('start getting categorys')
+        this.categoryService.getCategorys().subscribe((response:any)=>{
+          this.ngxSpinnerService.hide();
+          this.dataSource = new MatTableDataSource(response);
+          console.log(this.dataSource);
+          console.log(response);
+
+        },(error)=>{
+          this.ngxSpinnerService.hide();
+          if (error.error?.message) {
+            this.responseMessage = error.error?.message;
+          }
+          else {
+            this.responseMessage = GlobalConstants.genericError;
+          }
+          this.snackbarService.openSnackbar(this.responseMessage, GlobalConstants.error);
+        })
+      }
+
+    }
+

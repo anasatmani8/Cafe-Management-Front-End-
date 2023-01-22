@@ -1,3 +1,4 @@
+import { CategoryMenuComponent } from './../category-menu/category-menu.component';
 import { UserService } from './../services/user.service';
 import { LoginComponent } from './../login/login.component';
 import { ForgotPasswordComponent } from './../forgot-password/forgot-password.component';
@@ -25,6 +26,10 @@ export class HomeComponent implements OnInit {
       })
 
     }
+  }
+
+  categoryMenu(){
+    this.router.navigate(['/cafe/category']);
   }
 
   handelSignupAction(){
