@@ -1,12 +1,20 @@
+import { LoginComponent } from './../login/login.component';
+import { ForgotPasswordComponent } from './../forgot-password/forgot-password.component';
+import { SignupComponent } from './../signup/signup.component';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { GlobalConstants } from './../shared/global-constants';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ProductService } from './../services/product.service';
 
 import { Component, OnInit,Inject, ViewChild } from '@angular/core';
 import { expand, flyInOut, visibility } from '../animations/animation';
 import { switchMap } from 'rxjs/operators';
-import { Params, ActivatedRoute } from '@angular/router';
+import { Params, ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormGroup,FormControl, Validators, FormBuilder }  from '@angular/forms';
 import { Comment } from '../shared/Comment';
+import { Product } from '../shared/product';
+import { SnackbarService } from '../services/snackbar.service';
 
 @Component({
   selector: 'app-produit-menu',
@@ -38,7 +46,13 @@ export class ProduitMenuComponent implements OnInit {
 
   feedbackForm!: FormGroup ;
   feedback!: Comment;
-  public id!: any;
+  dishIds!: string[];
+  product!:Product;
+  productCopy!:Product;
+  prev!: string;
+  next!: string;
+  responseMessage:any;
+  visibility = 'shown';
 
   formErrors : { [char: string]: string } = {
     'author': '',
@@ -62,17 +76,54 @@ export class ProduitMenuComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private location: Location,
+    private router:Router,
     private fb: FormBuilder,
-    private productService:ProductService) {
+    private productService:ProductService,
+    private ngxSpinnerService:NgxSpinnerService,
+    private dialog:MatDialog,
+    private snackbarService:SnackbarService) {
       this.createForm();
      }
 
   ngOnInit(): void {
+
+    this.ngxSpinnerService.show();
     //this.productService.getProductByCategory()
-    this.id = this.route.snapshot.paramMap.get('id');
+      this.productService.getProductIds().subscribe(dishIds => this.dishIds = dishIds);
+    this.route.params.pipe(switchMap((params: Params) => { this.visibility = 'hidden';
+        return this.productService.getProductByCategory(+params['id']); })).subscribe((response:any)=>{
+          this.ngxSpinnerService.hide();
+          this.product = response;
+          this.productCopy = response;
+          console.log(this.product);
+          this.setPrevNext(response.id); this.visibility = 'shown';
+        },(error)=>{
+          this.ngxSpinnerService.hide();
+          if (error.error?.message) {
+            this.responseMessage = error.error?.message;
+          }
+          else {
+            this.responseMessage = GlobalConstants.genericError;
+          }
+          this.snackbarService.openSnackbar(this.responseMessage, GlobalConstants.error);
+        })
 
+      }
 
+  setPrevNext(dishId: string) {
+    const index = this.dishIds.indexOf(dishId);
+    this.prev = this.dishIds[(this.dishIds.length + index - 1) % this.dishIds.length];
+    this.next = this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length];
+
+    console.log(index, ":index");
+    console.log(this.prev, ":prev");
+    console.log(this.next, ":next");
   }
+
+goBack(): void {
+  this.location.back();
+
+}
 
   createForm() {
     this.feedbackForm = this.fb.group({
@@ -108,5 +159,28 @@ onValueChanged(data?: any) {
     }
   }
 }
+
+categoryMenu(){
+  this.router.navigate(['/cafe/category']);
+}
+
+handelSignupAction(){
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.width = "550px";
+  this.dialog.open(SignupComponent, dialogConfig);
+}
+
+handelForgotPasswordAction(){
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.width = "550px";
+  this.dialog.open(ForgotPasswordComponent, dialogConfig);
+}
+
+handelLoginAction(){
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.width = "550px";
+  this.dialog.open(LoginComponent, dialogConfig);
+}
+
 
 }

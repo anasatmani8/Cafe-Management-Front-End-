@@ -1,6 +1,9 @@
+import { Product } from './../shared/product';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -21,8 +24,13 @@ export class ProductService {
     });
   }
 
-  getProducts() {
-    return this.httpClient.get(this.url + '/product/get');
+  getProducts():Observable<Product[]> {
+    return this.httpClient.get<Product[]>(this.url + '/product/get');
+  }
+
+  getProductIds(): Observable<number[] | any> {
+    return this.getProducts().pipe(map(dishes => dishes.map(dish => dish.id)))
+      .pipe(catchError(error => error));
   }
 
   getProductByCategory(id: any) {
