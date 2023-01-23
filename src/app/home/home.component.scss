@@ -64,6 +64,7 @@ $background-pale: #D1C4E9;
 .footer{
     background-color: $background-pale;
     @include zero-margin(20px, 0px);
+    margin: 20px;
 }
 
 .btn-facebook {color:#fff!important; background-color:#3b5998!important;}
@@ -106,7 +107,10 @@ $background-pale: #D1C4E9;
 * {
   box-sizing: border-box;
 }
-
+.container {
+  margin: 20px;
+  display:flex;
+}
 /* Container for flexboxes */
 .row {
   display: flex;

@@ -12,7 +12,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { CategoryService } from './../services/category.service';
 import { Component, OnInit } from '@angular/core';
-import { expand, flyInOut } from '../animations/animation';
+import {  flyInOut, expand } from '../animations/animation';
 import { Category } from '../shared/category';
 
 @Component({

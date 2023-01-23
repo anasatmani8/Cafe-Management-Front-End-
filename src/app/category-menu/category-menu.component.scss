@@ -106,6 +106,10 @@ $background-pale: #D1C4E9;
 * {
   box-sizing: border-box;
 }
+.container {
+  margin: 20px;
+  display:flex;
+}
 
 /* Container for flexboxes */
 .row {
@@ -218,14 +222,21 @@ a {
   left: 0;
   width: 100% !important;
 }
-
+.highlight {
+  background-color: $background-pale;
+  border: 1px solid #512DA8;
+  z-index: 1;
+  transform: scale(1.01);
+}
 .mat-icon {
   vertical-align: middle;
 }
 .bg-image {
   /* The image used */
   background-image: url("../../assets/img/food1.jpg");
-
+.img{
+  background-image: url("../../assets/img/food1.jpg");
+}
 
   /* Add the blur effect */
   filter: blur(3px);
