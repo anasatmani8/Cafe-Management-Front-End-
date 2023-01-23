@@ -40,7 +40,7 @@ fxLayoutGap="10px">
 
 <div fxFlex *ngIf="dataSource" [@expand]>
 <mat-grid-list cols="2" rowHeight="200px">
-  <mat-grid-tile *ngFor="let dish of dataSource" appHighlight>
+  <mat-grid-tile *ngFor="let dish of dataSource" [routerLink]="['/productMenu/', dish.id]" appHighlight>
     <img height="200px" src="../../assets/img/{{dish.image}}" alt={{dish.name}}>
  <mat-grid-tile-footer>
  <h1 > {{dish.name | uppercase}} </h1>

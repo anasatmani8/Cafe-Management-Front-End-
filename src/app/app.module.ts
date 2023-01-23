@@ -23,6 +23,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { LoginComponent } from './login/login.component';
 import { CategoryMenuComponent } from './category-menu/category-menu.component';
 import { HighlightDirective } from './directives/highlight.directive';
+import { ProduitMenuComponent } from './produit-menu/produit-menu.component';
 
 
 
@@ -39,6 +40,7 @@ import { HighlightDirective } from './directives/highlight.directive';
     LoginComponent,
     CategoryMenuComponent,
     HighlightDirective,
+    ProduitMenuComponent,
 
    ],
   imports: [

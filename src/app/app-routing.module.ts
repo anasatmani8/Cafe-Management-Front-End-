@@ -1,3 +1,4 @@
+import { ProduitMenuComponent } from './produit-menu/produit-menu.component';
 import { CategoryMenuComponent } from './category-menu/category-menu.component';
 import { RouteGuardService } from './services/route-guard.service';
 import { NgModule } from '@angular/core';
@@ -8,6 +9,7 @@ import { FullComponent } from './layouts/full/full.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'category', component: CategoryMenuComponent },
+  { path: 'productMenu/:id', component: ProduitMenuComponent },
   {
     path: 'cafe',
     component: FullComponent,
