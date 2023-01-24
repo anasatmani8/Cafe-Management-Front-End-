@@ -28,9 +28,8 @@ export class ProductService {
     return this.httpClient.get<Product[]>(this.url + '/product/get');
   }
 
-  getProductIds(): Observable<number[] | any> {
-    return this.getProducts().pipe(map(dishes => dishes.map(dish => dish.id)))
-      .pipe(catchError(error => error));
+  getProductIds(id:number): Observable<number[] | any> {
+    return this.httpClient.get(this.url+'/product/getIdProductByCat/'+id);
   }
 
   getProductByCategory(id: any) {
