@@ -31,7 +31,7 @@ fxLayoutGap.xs="0" >
 <div fxFlex="40" *ngIf="product" [@visibility]="visibility" [@expand] >
 <mat-card>
   <mat-card-header>
-      <mat-card-title>{{ product.name | uppercase}}</mat-card-title>
+      <mat-card-title>{{product.name | uppercase}}</mat-card-title>
   </mat-card-header>
   <img mat-card-image src="../../assets/img/pizza.jpg" alt={{product.name}}>
   <mat-card-content>
@@ -93,3 +93,15 @@ fxLayoutGap.xs="0" >
   <div>
       <p>© Copyright 2018 Ristorante Con Fusion</p>
   </div>
+   <!-- <mat-card *ngFor="let dish of product">
+    <mat-card-header>
+      <mat-card-title>{{ dish.name }}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src="../../assets/img/pizza.jpg">
+    <mat-card-content>
+      <p>{{ dish.description }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>Learn More</button>
+    </mat-card-actions>
+  </mat-card>-->

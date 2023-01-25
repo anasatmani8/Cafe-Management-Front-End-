@@ -92,6 +92,7 @@ export class ProduitMenuComponent implements OnInit {
     console.log(+this.id);
     this.ngxSpinnerService.show();
     console.log(this.dishIds," init");
+
     //this.productService.getProductByCategory()
       this.productService.getProductIds(+this.id).subscribe(dishIds => this.dishIds = dishIds);
     this.route.params.pipe(switchMap((params: Params) => { this.visibility = 'hidden';
