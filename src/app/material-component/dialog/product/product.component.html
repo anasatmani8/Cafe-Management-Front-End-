@@ -4,7 +4,7 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-dialog-content class="mat-typography">
-  <form [formGroup]="productForm">
+  <form [formGroup]="productForm" enctype="multipart/form-data">
     <div fxFlex fxLayout="column">
       <div fxLayout="row wrap">
         <mat-form-field appearance="fill" fxFlex>
@@ -40,6 +40,16 @@
         </mat-form-field>
       </div>
 
+      <div fxLayout="row wrap">
+        <div appearance="fill" fxFlex>
+          <mat-label>Image</mat-label>
+          <input type="file" multiple value="select" #selectFile (change)="onFileSelected($event)" >
+          <mat-error *ngIf="formErrors['file']">{{
+            formErrors["file"]
+          }}</mat-error>
+        </div>
+      </div>
+
     </div>
   </form>
 </mat-dialog-content>
@@ -51,3 +61,5 @@
   </button>
   <button mat-raised-button color="warn" mat-dialog-close> <mat-icon>cancel</mat-icon> Close</button>
 </mat-dialog-actions>
+
+

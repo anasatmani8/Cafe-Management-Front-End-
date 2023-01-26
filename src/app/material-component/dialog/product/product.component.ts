@@ -5,6 +5,8 @@ import { ProductService } from './../../../services/product.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Inject } from '@angular/core';
+import { FileHandle } from 'src/app/shared/File';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product',
@@ -20,12 +22,14 @@ export class ProductComponent implements OnInit {
   action:any="Add";
   responseMessage:any;
   categorys:any=[];
+  fileName:any;
 
   formErrors : { [char: string]: string } = {
     'name': '',
     'categoryId': '',
     'price': '',
-    'description': ''
+    'description': '',
+    'file': ''
   } as const;
 
   validationMessages : any = {
@@ -45,6 +49,9 @@ export class ProductComponent implements OnInit {
       'required':      'description is required.',
       'minlength':     'Name must be at least 5 characters long.',
       'maxlength':     'Name cannot be more than 50 characters long.'
+    },
+    'file' :{
+      'required':      'file is required.'
     }
   };
 
@@ -53,7 +60,8 @@ export class ProductComponent implements OnInit {
   private productService:ProductService,
   public dialogRef:MatDialogRef<ProductComponent>,
   private snackbar: SnackbarService,
-  private categoryService:CategoryService) { }
+  private categoryService:CategoryService,
+  private sanitizer:DomSanitizer) { }
 
   ngOnInit(): void {
     this.productForm = this.formBuilder.group({
@@ -61,8 +69,9 @@ export class ProductComponent implements OnInit {
       categoryId:[null, Validators.required],
       price:[null, Validators.required],
       description:[null, [Validators.minLength(5), Validators.maxLength(50)]],
-
+      file:[this.fileName]
     })
+    this.productForm.file = this.fileName;
 
     if (this.dialogData.action === 'Edit') {
       this.dialogAction = 'Edit';
@@ -77,6 +86,8 @@ export class ProductComponent implements OnInit {
 
   this.onValueChanged(); // (re)set validation messages now
   }
+
+
 
   onValueChanged(data?: any) {
     if (!this.productForm) { return; }
@@ -121,13 +132,17 @@ export class ProductComponent implements OnInit {
   }
 
   add(){
+    console.log(this.fileName,"+++++++++++++")
     var formData = this.productForm.value;
+
     var data = {
       name:formData.name,
       categoryId:formData.categoryId,
       description:formData.description,
       price:formData.price,
+      file:this.fileName
     }
+    console.log(data);
 
     this.productService.add(data).subscribe((response:any)=>{
       this.dialogRef.close();
@@ -152,6 +167,7 @@ export class ProductComponent implements OnInit {
       categoryId:formData.categoryId,
       description:formData.description,
       price:formData.price,
+      file:formData.file
     }
 
     this.productService.update(data).subscribe((response:any)=>{
@@ -168,6 +184,18 @@ export class ProductComponent implements OnInit {
       this.snackbar.openSnackbar(this.responseMessage, GlobalConstants.error);
     })
   }
+  onFileSelected(event:any) {
+    if (event.target.files) {
+      const file = event.target.files[0];
 
+      const fileHandle : FileHandle = {
+        file: file,
+        url:this.sanitizer.bypassSecurityTrustUrl(window.URL.createObjectURL(file))
+      }
+      console.log(fileHandle.file.name)
+      this.fileName = fileHandle.file.name;
+      this.productForm.file = fileHandle.file.name;
+    }
+  }
 
 }

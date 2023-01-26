@@ -16,7 +16,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 })
 export class ManageProductComponent implements OnInit {
 
-  displayedColumns:string[] = ['name', 'categoryName', 'description', 'price', 'edit'];
+  displayedColumns:string[] = ['image', 'name', 'categoryName', 'description', 'price', 'edit'];
   dataSource:any;
   responseMessage:any;
 
@@ -34,6 +34,7 @@ export class ManageProductComponent implements OnInit {
   tableData(){
     this.productService.getProducts().subscribe((response:any)=>{
       this.ngxService.hide();
+      console.log(response)
       this.dataSource = new MatTableDataSource(response);
     },(error)=>{
       this.ngxService.hide();

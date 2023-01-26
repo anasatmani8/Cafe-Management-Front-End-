@@ -13,9 +13,7 @@ export class ProductService {
   constructor(private httpClient: HttpClient) {}
 
   add(data: any) {
-    return this.httpClient.post(this.url + '/product/add', data, {
-      headers: new HttpHeaders().set('Content-Type', 'application/json'),
-    });
+    return this.httpClient.post(this.url + '/product/add', data);
   }
 
   update(data: any) {
