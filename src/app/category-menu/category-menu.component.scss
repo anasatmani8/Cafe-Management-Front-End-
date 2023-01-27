@@ -231,10 +231,18 @@ a {
 .mat-icon {
   vertical-align: middle;
 }
+
+.imgg{
+
+  background-image: url("../../assets/img/food1.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .bg-image {
   /* The image used */
   background-image: url("../../assets/img/food1.jpg");
-  
+
 
 
   /* Add the blur effect */
