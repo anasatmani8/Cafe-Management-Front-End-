@@ -22,7 +22,7 @@ export class ProductComponent implements OnInit {
   action:any="Add";
   responseMessage:any;
   categorys:any=[];
-  fileName:any;
+  fileName!:string;
 
   formErrors : { [char: string]: string } = {
     'name': '',
@@ -161,16 +161,50 @@ export class ProductComponent implements OnInit {
 
   edit(){
     var formData = this.productForm.value;
-    var data = {
+
+    console.log(this.fileName);
+    console.log(this.dialogData.data.id," id");
+    if (this.fileName === undefined) {
+      console.log("do not update the file ");
+      var data = {
+        id:this.dialogData.data.id,
+        name:formData.name,
+        categoryId:formData.categoryId,
+        description:formData.description,
+        price:formData.price,
+
+      }
+
+      console.log(data);
+
+      this.productService.update(data).subscribe((response:any)=>{
+        this.dialogRef.close();
+        this.onEditProduct.emit();
+        this.responseMessage = response.message;
+        this.snackbar.openSnackbar(this.responseMessage, "Success");
+      }, (error:any)=>{
+        if(error.error?.message) {
+          this.responseMessage = error.error?.message;
+        } else {
+          this.responseMessage = GlobalConstants.genericError;
+        }
+        this.snackbar.openSnackbar(this.responseMessage, GlobalConstants.error);
+      })
+    } else {
+
+      console.log(" update the file ");
+      var dataa = {
       id:this.dialogData.data.id,
       name:formData.name,
       categoryId:formData.categoryId,
       description:formData.description,
       price:formData.price,
-      file:formData.file
+      file:this.fileName
     }
 
-    this.productService.update(data).subscribe((response:any)=>{
+    console.log(dataa);
+
+    this.productService.update(dataa).subscribe((response:any)=>{
       this.dialogRef.close();
       this.onEditProduct.emit();
       this.responseMessage = response.message;
@@ -183,6 +217,7 @@ export class ProductComponent implements OnInit {
       }
       this.snackbar.openSnackbar(this.responseMessage, GlobalConstants.error);
     })
+    }
   }
   onFileSelected(event:any) {
     if (event.target.files) {
