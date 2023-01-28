@@ -45,7 +45,7 @@ export class ProduitMenuComponent implements OnInit {
   feedback!: Comment;
   dishIds!: string[];
   id!: string;
-  product!: Product;
+  product!: Product[];
   productCopy!: Product;
   prev!: string;
   next!: string;
@@ -87,31 +87,15 @@ export class ProduitMenuComponent implements OnInit {
     // to show the list of product of every category selected with the two best comment
     // and a form to add a new comment
     // to add image : https://www.youtube.com/watch?v=oTJ89wcz5Ec
-
+    this.ngxSpinnerService.show();
     this.id = this.route?.snapshot?.paramMap?.get('id')!;
     console.log(+this.id);
-    this.ngxSpinnerService.show();
-    console.log(this.dishIds, ' init');
 
-    //this.productService.getProductByCategory()
-    this.productService
-      .getProductIds(+this.id)
-      .subscribe((dishIds) => (this.dishIds = dishIds));
-    this.route.params
-      .pipe(
-        switchMap((params: Params) => {
-          this.visibility = 'hidden';
-          return this.productService.getProductByCategory(+params['id']);
-        })
-      )
-      .subscribe(
+    this.productService.getProductByCategory(+this.id).subscribe(
         (response: any) => {
           this.ngxSpinnerService.hide();
           this.product = response;
-          this.productCopy = response;
           console.log(this.product);
-          this.setPrevNext(response.id);
-          this.visibility = 'shown';
         },
         (error) => {
           this.ngxSpinnerService.hide();
@@ -128,18 +112,6 @@ export class ProduitMenuComponent implements OnInit {
       );
   }
 
-  setPrevNext(dishId: string) {
-    console.log(this.dishIds, ' li m7m9ani');
-    const index = this.dishIds.indexOf(dishId);
-    this.prev =
-      this.dishIds[(this.dishIds.length + index - 1) % this.dishIds.length];
-    this.next =
-      this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length];
-
-    console.log(index, ':index');
-    console.log(this.prev, ':prev');
-    console.log(this.next, ':next');
-  }
 
   goBack(): void {
     this.location.back();

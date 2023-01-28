@@ -16,10 +16,10 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ManageCategoryComponent implements OnInit {
 
 
-  displayedColumns= ['name', 'edit'];
+  displayedColumns= ['image','name', 'edit'];
   dataSource = new MatTableDataSource<Element>([]);
   responseMessage:any;
-  
+
   constructor(private categoryService:CategoryService,
     private router:Router,
     private ngxSpinnerService:NgxSpinnerService,

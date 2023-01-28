@@ -11,6 +11,16 @@
         <input matInput formControlName="name" required>
         <mat-error *ngIf="formErrors['name']">{{formErrors['name']}}</mat-error>
       </mat-form-field>
+      <div fxLayout="row wrap">
+        <div appearance="fill" fxFlex>
+          <mat-label>Image</mat-label>
+          <input type="file" multiple value="select" #selectFile (change)="onFileSelected($event)" >
+          <mat-error *ngIf="formErrors['file']">{{
+            formErrors["file"]
+          }}</mat-error>
+        </div>
+      </div>
+
     </div>
   </form>
 </mat-dialog-content>
