@@ -40,11 +40,11 @@ body {
     color: white;
   }
 
-  .container {
+  .containerr {
     padding: 0 16px;
   }
 
-  .container::after, .row::after {
+  .containerr::after, .row::after {
     content: "";
     clear: both;
     display: table;
