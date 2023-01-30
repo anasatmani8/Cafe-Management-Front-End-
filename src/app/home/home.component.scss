@@ -64,7 +64,6 @@ $background-pale: #D1C4E9;
 .footer{
     background-color: $background-pale;
     @include zero-margin(20px, 0px);
-    margin: 20px;
 }
 
 .btn-facebook {color:#fff!important; background-color:#3b5998!important;}
@@ -111,6 +110,7 @@ $background-pale: #D1C4E9;
   margin: 20px;
   display:flex;
 }
+
 /* Container for flexboxes */
 .row {
   display: flex;
@@ -222,13 +222,19 @@ a {
   left: 0;
   width: 100% !important;
 }
-
+.highlight {
+  background-color: $background-pale;
+  border: 1px solid #512DA8;
+  z-index: 1;
+  transform: scale(1.01);
+}
 .mat-icon {
   vertical-align: middle;
 }
 .bg-image {
   /* The image used */
   background-image: url("../../assets/img/food1.jpg");
+
 
 
   /* Add the blur effect */
@@ -242,6 +248,10 @@ a {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+.card-size {
+  width: 300px;
+  height: 500px;
 }
 
 /* Position text in the middle of the page/image */

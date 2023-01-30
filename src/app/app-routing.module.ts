@@ -1,3 +1,4 @@
+import { AboutusComponent } from './aboutus/aboutus.component';
 import { ProduitMenuComponent } from './produit-menu/produit-menu.component';
 import { CategoryMenuComponent } from './category-menu/category-menu.component';
 import { RouteGuardService } from './services/route-guard.service';
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'category', component: CategoryMenuComponent },
   { path: 'productMenu/:id', component: ProduitMenuComponent },
+  { path: 'aboutus', component: AboutusComponent },
   {
     path: 'cafe',
     component: FullComponent,

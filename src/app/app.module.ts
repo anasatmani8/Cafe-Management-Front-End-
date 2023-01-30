@@ -25,6 +25,7 @@ import { LoginComponent } from './login/login.component';
 import { CategoryMenuComponent } from './category-menu/category-menu.component';
 import { HighlightDirective } from './directives/highlight.directive';
 import { ProduitMenuComponent } from './produit-menu/produit-menu.component';
+import { AboutusComponent } from './aboutus/aboutus.component';
 
 
 
@@ -42,6 +43,7 @@ import { ProduitMenuComponent } from './produit-menu/produit-menu.component';
     CategoryMenuComponent,
     HighlightDirective,
     ProduitMenuComponent,
+    AboutusComponent,
 
    ],
   imports: [
