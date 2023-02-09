@@ -5,10 +5,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { GlobalConstants } from './../shared/global-constants';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ProductService } from './../services/product.service';
-
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { expand, flyInOut, visibility } from '../animations/animation';
-import { switchMap } from 'rxjs/operators';
 import { Params, ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import {

@@ -1,3 +1,5 @@
+import { ManageImageComponent } from './manage-image/manage-image.component';
+
 import { ManageUserComponent } from './manage-user/manage-user.component';
 import { ViewBillComponent } from './view-bill/view-bill.component';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
@@ -43,6 +45,14 @@ export const MaterialRoutes: Routes = [
   {
     path: 'user',
     component: ManageUserComponent,
+    canActivate: [RouteGuardService],
+    data: {
+      expectedRole: ['admin'],
+    },
+  },
+  {
+    path: 'image',
+    component: ManageImageComponent,
     canActivate: [RouteGuardService],
     data: {
       expectedRole: ['admin'],

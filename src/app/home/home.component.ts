@@ -1,3 +1,4 @@
+import { WtspComponent } from './../wtsp/wtsp.component';
 import { CategoryMenuComponent } from './../category-menu/category-menu.component';
 import { UserService } from './../services/user.service';
 import { LoginComponent } from './../login/login.component';
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+
 
   constructor(private dialog:MatDialog,
     private router:Router,
@@ -49,5 +51,11 @@ export class HomeComponent implements OnInit {
     dialogConfig.width = "550px";
     this.dialog.open(LoginComponent, dialogConfig);
   }
+
+  Whatsapp() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "550px";
+    this.dialog.open(WtspComponent, dialogConfig);
+    }
 
 }

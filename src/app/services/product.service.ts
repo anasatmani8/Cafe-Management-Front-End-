@@ -16,6 +16,10 @@ export class ProductService {
     return this.httpClient.post(this.url + '/product/add', data);
   }
 
+  addImage(formData: FormData):Observable<any>{
+    return this.httpClient.post(this.url + '/image/add', formData)
+  }
+
   update(data: any) {
     return this.httpClient.post(this.url + '/product/update', data, {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),

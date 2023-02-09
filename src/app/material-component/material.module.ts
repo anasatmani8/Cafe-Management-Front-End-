@@ -1,12 +1,11 @@
+
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { CdkTableModule } from '@angular/cdk/table';
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-
 import { MaterialRoutes } from './material.routing';
 import { MaterialModule } from '../shared/material-module';
 import { ViewBillProductsComponent } from './dialog/view-bill-products/view-bill-products.component';
@@ -19,6 +18,7 @@ import { ProductComponent } from './dialog/product/product.component';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
 import { ViewBillComponent } from './view-bill/view-bill.component';
 import { ManageUserComponent } from './manage-user/manage-user.component';
+import { ManageImageComponent } from './manage-image/manage-image.component';
 
 @NgModule({
   imports: [
@@ -42,7 +42,8 @@ import { ManageUserComponent } from './manage-user/manage-user.component';
     ProductComponent,
     ManageOrderComponent,
     ViewBillComponent,
-    ManageUserComponent
+    ManageUserComponent,
+    ManageImageComponent
   ]
 })
 export class MaterialComponentsModule {}

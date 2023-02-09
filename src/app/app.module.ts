@@ -26,6 +26,8 @@ import { CategoryMenuComponent } from './category-menu/category-menu.component';
 import { HighlightDirective } from './directives/highlight.directive';
 import { ProduitMenuComponent } from './produit-menu/produit-menu.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
+import { WtspComponent } from './wtsp/wtsp.component';
+import { ImageComponent } from './material-component/dialog/image/image.component';
 
 
 
@@ -44,6 +46,8 @@ import { AboutusComponent } from './aboutus/aboutus.component';
     HighlightDirective,
     ProduitMenuComponent,
     AboutusComponent,
+    WtspComponent,
+    ImageComponent
 
    ],
   imports: [
