@@ -1,0 +1,50 @@
+<div class="container ">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6">
+        <form #imoAchatForm="ngForm" (ngSubmit)="addAchat(imoAchatForm)">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Title</mat-label>
+          <input matInput placeholder="Title"
+          [(ngModel)]="imoAchat.title" [ngModelOptions]="{standalone: true}" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Description</mat-label>
+          <input matInput placeholder="Description"
+          [(ngModel)]="imoAchat.description" [ngModelOptions]="{standalone: true}"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Price</mat-label>
+          <input matInput placeholder="Price"
+          [(ngModel)]="imoAchat.price" [ngModelOptions]="{standalone: true}"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Adresse</mat-label>
+          <input matInput placeholder="Adresse"
+          [(ngModel)]="imoAchat.adresse" [ngModelOptions]="{standalone: true}"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Surface</mat-label>
+          <input matInput placeholder="Surface"
+          [(ngModel)]="imoAchat.surface" [ngModelOptions]="{standalone: true}"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Rooms</mat-label>
+          <input matInput placeholder="Rooms"
+          [(ngModel)]="imoAchat.rooms" [ngModelOptions]="{standalone: true}"/>
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="primary">Add Achat</button>
+      </form>
+      </div>
+
+      <div class="col-6">
+        <input type="file" multiple value="select" #selectFile
+        (change)="onFileSelected($event)">
+      </div>
+    </div>
+  </div>
+</div>

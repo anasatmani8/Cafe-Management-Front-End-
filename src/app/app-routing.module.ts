@@ -1,3 +1,4 @@
+import { ImoAchatComponent } from './imo-achat/imo-achat.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { ProduitMenuComponent } from './produit-menu/produit-menu.component';
 import { CategoryMenuComponent } from './category-menu/category-menu.component';
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'category', component: CategoryMenuComponent },
   { path: 'productMenu/:id', component: ProduitMenuComponent },
   { path: 'aboutus', component: AboutusComponent },
+  { path: 'AddAchat', component:ImoAchatComponent},
   {
     path: 'cafe',
     component: FullComponent,

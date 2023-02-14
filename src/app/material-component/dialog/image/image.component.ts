@@ -1,5 +1,5 @@
 import { ProductService } from './../../../services/product.service';
-import { FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 
 @Component({
@@ -32,14 +32,14 @@ export class ImageComponent implements OnInit {
       'required':      'file is required.'
     }
   };
-  constructor( private productService:ProductService) { }
+  constructor( private productService:ProductService, private formBuilder:FormBuilder) { }
 
 
 
   ngOnInit(): void {
-    this.imageForm = this.imageForm.group({
+    this.imageForm = this.formBuilder.group({
       name:[null, [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
-      file:[null]
+      file:[this.userfile]
     });
 
 
@@ -56,7 +56,8 @@ export class ImageComponent implements OnInit {
   onSelectFile(event:any){
     if (event.target.files.length > 0){
       const file = event.target.files[0];
-      this.userfile =file;
+      this.userfile =file.name;
+      console.log(this.userfile)
 
       var mimeType = event.target.files[0].type;
       if (mimeType.match(/image\/*/) == null) {
@@ -99,10 +100,15 @@ export class ImageComponent implements OnInit {
 
 
   addData(){
-    const formData = this.imageForm.value
-    const name = this.imageForm.name;
+    const formData = new FormData();
+    const data  = this.imageForm.value
+
+    const name = data.name;
+    console.log(name)
     formData.append("name",JSON.stringify(name));
     formData.append("file",this.userfile);
+    console.log(data)
+    console.log(formData)
     this.productService.addImage(formData).subscribe(data =>{
       console.log("ok")
     })

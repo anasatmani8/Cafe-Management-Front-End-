@@ -1,9 +1,9 @@
+import { ImoAchat } from './../shared/imoAchat';
 import { Product } from './../shared/product';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +14,10 @@ export class ProductService {
 
   add(data: any) {
     return this.httpClient.post(this.url + '/product/add', data);
+  }
+
+  addAchat(ImoAchat: FormData) {
+    return this.httpClient.post<ImoAchat>(this.url + '/addAchat', ImoAchat);
   }
 
   addImage(formData: FormData):Observable<any>{

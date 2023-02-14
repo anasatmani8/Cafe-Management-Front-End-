@@ -12,16 +12,16 @@
 <form [formGroup]="imageForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label >Name</label>
-    <input type="text" class="form-control">
+    <input matInput formControlName="name" required>
   </div>
   <div class="form-group">
     <label >File Upload</label>
-    <input type="file" accept="image/*" (change)="onSelectFile($event)">
+    <input type="file" multiple accept="image/*" (change)="onSelectFile($event)">
     <img [src]="imgUrl" height="100" *ngIf="imgUrl">
   </div>
 
   <div class="form-group">
-    <label >Name</label>
+    <label >Action</label>
     <button type="submit" class="btn btn-black"><i class="fa fa-database">Submit</i></button>
   </div>
 </form>

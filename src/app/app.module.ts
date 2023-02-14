@@ -28,6 +28,7 @@ import { ProduitMenuComponent } from './produit-menu/produit-menu.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { WtspComponent } from './wtsp/wtsp.component';
 import { ImageComponent } from './material-component/dialog/image/image.component';
+import { ImoAchatComponent } from './imo-achat/imo-achat.component';
 
 
 
@@ -47,7 +48,8 @@ import { ImageComponent } from './material-component/dialog/image/image.componen
     ProduitMenuComponent,
     AboutusComponent,
     WtspComponent,
-    ImageComponent
+    ImageComponent,
+    ImoAchatComponent
 
    ],
   imports: [
