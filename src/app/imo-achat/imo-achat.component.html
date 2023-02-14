@@ -1,50 +1,99 @@
-<div class="container ">
-  <div class="card-body">
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+  rel="stylesheet"
+/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<div class="container mt-5">
+  <div class="card p-2">
     <div class="row">
       <div class="col-6">
         <form #imoAchatForm="ngForm" (ngSubmit)="addAchat(imoAchatForm)">
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Title</mat-label>
-          <input matInput placeholder="Title"
-          [(ngModel)]="imoAchat.title" [ngModelOptions]="{standalone: true}" />
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Title</mat-label>
+            <input
+              matInput
+              placeholder="Title"
+              [(ngModel)]="imoAchat.title"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Description</mat-label>
-          <input matInput placeholder="Description"
-          [(ngModel)]="imoAchat.description" [ngModelOptions]="{standalone: true}"/>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Description</mat-label>
+            <input
+              matInput
+              placeholder="Description"
+              [(ngModel)]="imoAchat.description"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Price</mat-label>
-          <input matInput placeholder="Price"
-          [(ngModel)]="imoAchat.price" [ngModelOptions]="{standalone: true}"/>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Price</mat-label>
+            <input
+              matInput
+              placeholder="Price"
+              [(ngModel)]="imoAchat.price"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Adresse</mat-label>
-          <input matInput placeholder="Adresse"
-          [(ngModel)]="imoAchat.adresse" [ngModelOptions]="{standalone: true}"/>
-        </mat-form-field>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Adresse</mat-label>
+            <input
+              matInput
+              placeholder="Adresse"
+              [(ngModel)]="imoAchat.adresse"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </mat-form-field>
 
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Surface</mat-label>
-          <input matInput placeholder="Surface"
-          [(ngModel)]="imoAchat.surface" [ngModelOptions]="{standalone: true}"/>
-        </mat-form-field>
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Rooms</mat-label>
-          <input matInput placeholder="Rooms"
-          [(ngModel)]="imoAchat.rooms" [ngModelOptions]="{standalone: true}"/>
-        </mat-form-field>
-        <button type="submit" mat-raised-button color="primary">Add Achat</button>
-      </form>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Surface</mat-label>
+            <input
+              matInput
+              placeholder="Surface"
+              [(ngModel)]="imoAchat.surface"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Rooms</mat-label>
+            <input
+              matInput
+              placeholder="Rooms"
+              [(ngModel)]="imoAchat.rooms"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </mat-form-field>
+          <button type="submit" mat-raised-button color="primary">
+            Add Achat
+          </button>
+        </form>
       </div>
 
       <div class="col-6">
-        <input type="file" multiple value="select" #selectFile
-        (change)="onFileSelected($event)">
+        <input
+          type="file"
+          multiple
+          value="select"
+          #selectFile
+          (change)="onFileSelected($event)"
+        />
+
+      <div class="mt-5">
+        <div class="row">
+          <mat-grid-list cols="4" rowHeight="1:1">
+            <mat-grid-tile *ngFor="let file of imoAchat.imoAchatImages; let i=index;">
+              <div style="position: relative">
+                <span class="btn-remove-image" (click)="removeImgae(i)">X</span>
+                <img [src]="file.url" width="100px" height="100px" />
+              </div>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </div>
       </div>
+    </div>
     </div>
   </div>
 </div>

@@ -12,6 +12,7 @@ import { NgForm } from '@angular/forms';
 })
 export class ImoAchatComponent implements OnInit {
 
+
   imoAchat: ImoAchat = {
     title: '',
     description: '',
@@ -43,11 +44,11 @@ export class ImoAchatComponent implements OnInit {
         new Blob([JSON.stringify(imoAchat)], {type:'application/json'})
       );
 
-      for (let index = 0; index < imoAchat.imoAchatImages.length; index++) {
+      for (let i = 0; i < imoAchat.imoAchatImages.length; i++) {
         formData.append(
           'file',
-          imoAchat.imoAchatImages[index].file,
-          imoAchat.imoAchatImages[index].file.name
+          imoAchat.imoAchatImages[i].file,
+          imoAchat.imoAchatImages[i].file.name
         )
 
 
@@ -69,6 +70,10 @@ export class ImoAchatComponent implements OnInit {
         this.imoAchat.imoAchatImages.push(fileHandle);
       }
 
+    }
+
+    removeImgae(i:number) {
+      this.imoAchat.imoAchatImages.splice(i,1);
     }
 
   ngOnInit(): void {}

@@ -29,6 +29,7 @@ import { AboutusComponent } from './aboutus/aboutus.component';
 import { WtspComponent } from './wtsp/wtsp.component';
 import { ImageComponent } from './material-component/dialog/image/image.component';
 import { ImoAchatComponent } from './imo-achat/imo-achat.component';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 
@@ -65,7 +66,8 @@ import { ImoAchatComponent } from './imo-achat/imo-achat.component';
     NgxSpinnerModule,
     MatIconModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule
 
   ],
   providers: [HttpClientModule, {provide:HTTP_INTERCEPTORS, useClass:TokenInterceptorInterceptor, multi:true}],
