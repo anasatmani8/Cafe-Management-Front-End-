@@ -30,6 +30,7 @@ import { WtspComponent } from './wtsp/wtsp.component';
 import { ImageComponent } from './material-component/dialog/image/image.component';
 import { ImoAchatComponent } from './imo-achat/imo-achat.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { DragDirective } from './directives/drag.directive';
 
 
 
@@ -50,7 +51,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     AboutusComponent,
     WtspComponent,
     ImageComponent,
-    ImoAchatComponent
+    ImoAchatComponent,
+    DragDirective
 
    ],
   imports: [

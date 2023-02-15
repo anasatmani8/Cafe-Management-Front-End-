@@ -72,6 +72,11 @@ export class ImoAchatComponent implements OnInit {
 
     }
 
+    fileDropped(fileHandle:FileHandle){
+      console.log(fileHandle);
+      this.imoAchat.imoAchatImages.push(fileHandle);
+    }
+
     removeImgae(i:number) {
       this.imoAchat.imoAchatImages.splice(i,1);
     }
