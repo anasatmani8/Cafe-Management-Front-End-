@@ -1,3 +1,4 @@
+import { ImoAchat } from './../shared/imoAchat';
 import { DOCUMENT } from '@angular/common';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -77,6 +78,8 @@ export class WtspComponent implements OnInit {
       this.dialogRef.close();
 
   }
+
+
 
 
 

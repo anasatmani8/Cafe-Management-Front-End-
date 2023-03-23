@@ -1,9 +1,9 @@
-import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
 
+import { TokenInterceptorInterceptor } from './services/token-interceptor.interceptor';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppRoutingModule } from './app-routing.module';
 import {MatCardModule} from '@angular/material/card';
 import { AppComponent } from './app.component';
@@ -31,7 +31,7 @@ import { ImageComponent } from './material-component/dialog/image/image.componen
 import { ImoAchatComponent } from './imo-achat/imo-achat.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { DragDirective } from './directives/drag.directive';
-
+import { WorkComponent } from './work/work.component';
 
 
 @NgModule({
@@ -52,7 +52,8 @@ import { DragDirective } from './directives/drag.directive';
     WtspComponent,
     ImageComponent,
     ImoAchatComponent,
-    DragDirective
+    DragDirective,
+    WorkComponent
 
    ],
   imports: [
@@ -65,11 +66,11 @@ import { DragDirective } from './directives/drag.directive';
     FlexLayoutModule,
     SharedModule,
     HttpClientModule,
-    NgxSpinnerModule,
     MatIconModule,
     MatButtonModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    NgxSpinnerModule
 
   ],
   providers: [HttpClientModule, {provide:HTTP_INTERCEPTORS, useClass:TokenInterceptorInterceptor, multi:true}],

@@ -1,3 +1,5 @@
+import { WorkComponent } from './../work/work.component';
+import { MatDialog } from '@angular/material/dialog';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FileHandle } from 'src/app/shared/File';
 import { ProductService } from './../services/product.service';
@@ -23,7 +25,8 @@ export class ImoAchatComponent implements OnInit {
     imoAchatImages: []
   };
   constructor(private prodService:ProductService,
-    private sanitize:DomSanitizer) {}
+    private sanitize:DomSanitizer,
+    private imagesdialog:MatDialog) {}
 
   addAchat(imoAchatForm: NgForm) {
     console.log(this.imoAchat)
@@ -79,6 +82,10 @@ export class ImoAchatComponent implements OnInit {
 
     removeImgae(i:number) {
       this.imoAchat.imoAchatImages.splice(i,1);
+    }
+
+    showImage(imoAchat:ImoAchat){
+      this.imagesdialog.open(WorkComponent);
     }
 
   ngOnInit(): void {}
